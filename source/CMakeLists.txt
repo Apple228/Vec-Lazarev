@@ -1,2 +1,2 @@
 project(Vec-Lazarev)
-add_executable(vec main.cpp)
+add_executable(vec main.cpp class.h)
