@@ -52,4 +52,59 @@ std::ostream& operator << (std::ostream& out, const Vec& c)
 
 }
 
+class Matrix
+{
+private:
+	long int** Matr;
+	long int line;
+	long int collumn;
 
+	void Create()
+	{
+		Matr = new long int* [line];
+		for (int z = 0; z < line; z++)
+			Matr[z] = new long int[collumn];
+	}
+
+public:
+	// constructors and destructor
+	Matrix() : line(5), collumn(5) { Create(); }
+	Matrix(long int i) : line(i), collumn(i) { Create(); }
+	Matrix(long int i, long int j) : line(i), collumn(j) { Create(); }
+	~Matrix()
+	{
+		for (int z = 0; z < line; z++)
+			delete[] Matr[z];
+		delete[] Matr;
+	}
+
+	// methods
+	long int& Element(long int i, long int j)
+	{
+		if (i < line && j < collumn)
+			return Matr[i][j];
+		else
+			cout << "Error: 1";
+	}
+
+	void MultiplyBy(long int x)
+	{
+		for (int i = 0; i < line; i++)
+			for (int j = 0; j < collumn; j++)
+				Matr[i][j] *= x;
+	}
+
+	void Display()
+	{
+		for (int i = 0; i < line; i++)
+		{
+			for (int j = 0; j < collumn; j++)
+			{
+				cout.width(4);
+				cout << Matr[i][j];
+			}
+			cout << endl;
+		}
+	}
+
+};
