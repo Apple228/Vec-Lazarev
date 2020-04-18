@@ -14,39 +14,46 @@ int main()
 		b.arr[i] = i;
 	}
 
-	cout << a;
-	cout << b;
+	cout <<"Вектор 1: " <<a;
+	cout <<"Вектор 2: " << b;
 	/*a.print();
 	b.print();*/
 	c = a + b;
 	/*c.print();*/
-	cout << c; //оператор переопределён
+	cout <<"Сумма векторов: "<< c; //оператор переопределён
 	
 
 	
 
 
-
-
-	double** arr;
-	int line = 5;
-	int collumn = 2;
 	
-	Matrix M(3);
+	int line=3;
+	/*cout << "Количество строк: "; cin >> line;*/
+	int collumn=3;
+	//cout << "Количество столбцов: "; cin >> collumn;
+	
+	Matrix M(line, collumn);
 
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < line; i++)
 	{
-		for (int j = 0; j < 3; j++)
-			M.Element(i, j) = i + j;
+		for (int j = 0; j < collumn; j++)
+			M.Element(i, j) = i+j;
 	}
 
-	M.Display();
+	/*M.Display();*/
+	cout << M;
+	Matrix L(line, collumn);
+	L = M;
+	L.MultiplyBy(5);
 
-	/*cout << "\n After multiply by 5\n" << endl;
-	M.MultiplyBy(5);
+	cout << "\n After multiply by 5\n" << endl;
+	cout << L;
+	cout << M;
+	/*M.MultiplyBy(5);
 	M.Display();*/
 
 	return 0;
 	
 	
+
 }
