@@ -24,8 +24,6 @@ int main()
 	
 
 	
-
-
 	
 	int line=3;
 	/*cout << "Количество строк: "; cin >> line;*/
@@ -39,19 +37,30 @@ int main()
 		for (int j = 0; j < collumn; j++)
 			M.Element(i, j) = i+j;
 	}
-
-	/*M.Display();*/
 	cout << M;
+
+
 	Matrix L(line, collumn);
 	L = M;
 	L.MultiplyBy(5);
 
 	cout << "\n After multiply by 5\n" << endl;
 	cout << L;
-	cout << M;
-	/*M.MultiplyBy(5);
-	M.Display();*/
+	
+	cout << "\n After summ\n" << endl;
+	L.summ_matrix(M);
+	cout << L;
 
+	cout << "\n After multiply \n" << endl;
+	Matrix G(line, collumn);
+	for (int i = 0; i < line; i++)
+	{
+		for (int j = 0; j < collumn; j++)
+			G.Element(i, j) = 0;
+	}
+	cout << G;
+	
+	cout << M*L;
 	return 0;
 	
 	

@@ -1,6 +1,13 @@
 #pragma once
 #include <iostream>
 using namespace std;
+inline int min(int a, int b)
+{
+	return (a <= b) ? a : b;
+}
+
+inline int min(int, int);
+
 
 class Vec
 {
@@ -76,21 +83,21 @@ public:
 	}
 
 	// methods
-	long int& Element(long int i, long int j)
+	long int &Element(long int i, long int j)
 	{
 		if (i < line && j < collumn)
 			return Matr[i][j];
 		else
 			cout << "Error: 1"; //добавить throw
 	}
-
+	
 	void MultiplyBy(long int x) //умножение матрицы на какое-то число
 	{
 		for (int i = 0; i < line; i++)
 			for (int j = 0; j < collumn; j++)
 				Matr[i][j] *= x;
 	}
-
+	//вывод на экран 
 	void Display()
 	{
 		for (int i = 0; i < line; i++)
@@ -103,13 +110,13 @@ public:
 			cout << endl;
 		}
 	}
+	//оператор присвивания
 	Matrix& operator = (const Matrix& a)
 	{
 		if (this->collumn > 0)
 		{
 			for (int i = 0; i < a.line; i++)
 				delete[] this->Matr[i];
-
 		}
 		if (this->line > 0)
 		{
@@ -128,6 +135,7 @@ public:
 		return *this;
 	}
 
+	//вывод через <<
 	friend std::ostream& operator << (std::ostream& out, Matrix& a) {
 		for (int i = 0; i < a.line; i++)
 		{
@@ -140,6 +148,26 @@ public:
 		}
 		return out;
 	}
+	void summ_matrix(Matrix some)
+	{
+		for (int i = 0; i < min(line, some.line); i++)
+			for (int j = 0; j < min(collumn, some.collumn); j++)
+				Matr[i][j] += some.Matr[i][j];
+	}
 	
+	Matrix& operator * (const Matrix& a)
+	{
+		/*if (this->collumn != a.line)
+		{
+			throw exception("Matrices are incompatible");
+		}*/
+	Matrix result(this->line, a.collumn);
+	for (int i = 0; i < this->line; i++)
+		for (int j = 0; j < a.collumn; j++)
+			for (int k = 0; k < this->collumn; k++)
+				result.Matr[i][j] += this->Matr[i][k] * a.Matr[k][j];
+	return result;
+
+	}
 	
 };
