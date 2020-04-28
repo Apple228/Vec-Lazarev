@@ -47,20 +47,14 @@ int main()
 	cout << "\n After multiply by 5\n" << endl;
 	cout << L;
 	
-	cout << "\n After summ\n" << endl;
-	L.summ_matrix(M);
-	cout << L;
+	//cout << "\n After summ\n" << endl;
+	//L.summ_matrix(M);
+	//cout << L;
 
 	cout << "\n After multiply \n" << endl;
-	Matrix G(line, collumn);
-	for (int i = 0; i < line; i++)
-	{
-		for (int j = 0; j < collumn; j++)
-			G.Element(i, j) = 0;
-	}
-	cout << G;
-	
+	//M = M * L;
 	cout << M*L;
+	
 	return 0;
 	
 	

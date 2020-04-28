@@ -162,10 +162,15 @@ public:
 			throw exception("Matrices are incompatible");
 		}*/
 	Matrix result(this->line, a.collumn);
+
 	for (int i = 0; i < this->line; i++)
 		for (int j = 0; j < a.collumn; j++)
-			for (int k = 0; k < this->collumn; k++)
-				result.Matr[i][j] += this->Matr[i][k] * a.Matr[k][j];
+			for (int k = 0; k < this->collumn; k++) {
+				/*cout << this->Matr[i][k]<<" ";
+				cout << a.Matr[k][j];*/
+				/*result.Matr[i][j] += this->Matr[i][k] * a.Matr[k][j];*/
+				result.Element(i, j) = this->Matr[i][k] * a.Matr[k][j];
+			}
 	return result;
 
 	}
