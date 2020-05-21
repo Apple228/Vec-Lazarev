@@ -85,11 +85,20 @@ public:
 	// methods
 	long int &Element(long int i, long int j)
 	{
-		if (i < line && j < collumn)
-			return Matr[i][j];
-		else
-			cout << "Error: 1"; //добавить throw
+		try {
+			if (i < line && j < collumn)
+				return Matr[i][j];
+			else {
+				throw "Неправильные размеры матрицы";  //добавить throw
+			}
+		}
+		catch (const char* exception) // обработчик исключений типа const char*
+		{
+			std::cerr << "Error: " << exception << '\n';
+		}
 	}
+	
+
 	
 	void MultiplyBy(long int x) //умножение матрицы на какое-то число
 	{
@@ -109,6 +118,36 @@ public:
 			}
 			cout << endl;
 		}
+	}
+	// Конструктор копирования - обязательный
+	Matrix(const Matrix& _M)
+	{
+		// Создается новый объект для которого виделяется память
+		// Копирование данных *this <= _M
+		line = _M.line;
+		collumn = _M.collumn;
+
+		Matr = new long int* [line];
+		for (int z = 0; z < line; z++)
+			Matr[z] = new long int[collumn];
+		
+		// заполнить значениями
+		for (int i = 0; i < line; i++)
+			for (int j = 0; j < collumn; j++)
+				Matr[i][j] = _M.Matr[i][j];
+	}
+	Matrix multiply(const Matrix& m) const {
+		if (!(line == m.line && collumn == m.collumn))
+			throw std::invalid_argument("Matrix dimension must be the same.");
+
+		Matrix result(line, collumn);
+
+		for (int i = 0; i < line; i++) {
+			for (int j = 0; j < collumn; j++) {
+				result.Matr[i][j] = Matr[i][j] * m.Matr[i][j];
+			}
+		}
+		return result;
 	}
 	//оператор присвивания
 	Matrix& operator = (const Matrix& a)
@@ -161,18 +200,21 @@ public:
 		{
 			throw exception("Matrices are incompatible");
 		}*/
-	Matrix result(this->line, a.collumn);
+		Matrix result(this->line, a.collumn);
 
-	for (int i = 0; i < this->line; i++)
-		for (int j = 0; j < a.collumn; j++)
-			for (int k = 0; k < this->collumn; k++) {
-				/*cout << this->Matr[i][k]<<" ";
-				cout << a.Matr[k][j];*/
-				/*result.Matr[i][j] += this->Matr[i][k] * a.Matr[k][j];*/
-				result.Element(i, j) = this->Matr[i][k] * a.Matr[k][j];
+		for (int i = 0; i < this->line; i++){
+			for (int j = 0; j < a.collumn; j++) {
+				for (int k = 0; k < this->collumn; k++) {
+					/*cout << this->Matr[i][k] << " ";
+					cout << a.Matr[k][j] << " ";*/
+					result.Matr[i][j] += this->Matr[i][k] * a.Matr[k][j];
+					/*result.Element(i, j) = (this->Matr[i][k] * a.Matr[k][j]);*/
+					cout << result;
+				}
 			}
-	return result;
-
+		}
+		return result;
 	}
 	
 };
+
