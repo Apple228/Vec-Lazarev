@@ -48,9 +48,12 @@ int main()
 	cout << "\n After multiply by 5\n" << endl;
 	cout << L;
 	
-	L.multiply(M);
-	cout << L;
-	
+
+	cout << L * M;
+
+	/*Matrix B(line, collumn);
+	M *= L;
+	cout << M;*/
 	//cout << "\n After summ\n" << endl;
 	//L.summ_matrix(M);
 	//cout << L;

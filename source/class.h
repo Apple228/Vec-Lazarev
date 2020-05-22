@@ -119,7 +119,7 @@ public:
 			cout << endl;
 		}
 	}
-	// Конструктор копирования - обязательный
+	// Конструктор копирования
 	Matrix(const Matrix& _M)
 	{
 		// Создается новый объект для которого виделяется память
@@ -193,28 +193,52 @@ public:
 			for (int j = 0; j < min(collumn, some.collumn); j++)
 				Matr[i][j] += some.Matr[i][j];
 	}
-	
-	Matrix& operator * (const Matrix& a)
+	Matrix& Matrix::operator*=(const Matrix& m)
 	{
-		/*if (this->collumn != a.line)
-		{
-			throw exception("Matrices are incompatible");
-		}*/
-		Matrix result(this->line, a.collumn);
-
-		for (int i = 0; i < this->line; i++){
-			for (int j = 0; j < a.collumn; j++) {
-				for (int k = 0; k < this->collumn; k++) {
-					/*cout << this->Matr[i][k] << " ";
-					cout << a.Matr[k][j] << " ";*/
-					result.Matr[i][j] += this->Matr[i][k] * a.Matr[k][j];
-					/*result.Element(i, j) = (this->Matr[i][k] * a.Matr[k][j]);*/
-					cout << result;
+		Matrix temp(line, m.collumn);
+		for (int i = 0; i < temp.line; ++i) {
+			for (int j = 0; j < temp.collumn; ++j) {
+				for (int k = 0; k < collumn; ++k) {
+					temp.Matr[i][j] += (Matr[i][k] * m.Matr[k][j]);
 				}
 			}
 		}
-		return result;
+		return (*this = temp);
 	}
 	
+	//Matrix& operator * (const Matrix& a)
+	//{
+	//	/*if (this->collumn != a.line)
+	//	{
+	//		throw exception("Matrices are incompatible");
+	//	}*/
+	//	Matrix result(this->line, a.collumn);
+
+	//	for (int i = 0; i < this->line; i++){
+	//		for (int j = 0; j < a.collumn; j++) {
+	//			for (int k = 0; k < this->collumn; k++) {
+	//				/*cout << this->Matr[i][k] << " ";
+	//				cout << a.Matr[k][j] << " ";*/
+	//				result.Matr[i][j] += this->Matr[i][k] * a.Matr[k][j];
+	//				/*result.Element(i, j) = (this->Matr[i][k] * a.Matr[k][j]);*/
+	//				cout << result;
+	//			}
+	//		}
+	//	}
+	//	return result;
+	//}
+	Matrix Matrix ::operator *(Matrix& b) {
+		Matrix c(line, collumn);
+		for (int k = 0; k < line; k++) {
+			for (int i = 0; i < collumn; i++)
+			{
+				c.Matr[k][i] = 0;
+				for (int j = 0; j < b.line; j++) {
+					c.Matr[k][i] += (Matr[k][j] * b.Matr[j][i]);
+				}
+			}
+		}
+		return c;
+	}
 };
 
