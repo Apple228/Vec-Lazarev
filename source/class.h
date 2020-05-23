@@ -85,17 +85,10 @@ public:
 	// methods
 	long int &Element(long int i, long int j)
 	{
-		try {
-			if (i < line && j < collumn)
-				return Matr[i][j];
-			else {
-				throw "Неправильные размеры матрицы";  //добавить throw
-			}
-		}
-		catch (const char* exception) // обработчик исключений типа const char*
-		{
-			std::cerr << "Error: " << exception << '\n';
-		}
+		if (i < line && j < collumn)
+			return Matr[i][j];
+		else
+			cout << "Error: 1";
 	}
 	
 
@@ -193,18 +186,7 @@ public:
 			for (int j = 0; j < min(collumn, some.collumn); j++)
 				Matr[i][j] += some.Matr[i][j];
 	}
-	Matrix& Matrix::operator*=(const Matrix& m)
-	{
-		Matrix temp(line, m.collumn);
-		for (int i = 0; i < temp.line; ++i) {
-			for (int j = 0; j < temp.collumn; ++j) {
-				for (int k = 0; k < collumn; ++k) {
-					temp.Matr[i][j] += (Matr[i][k] * m.Matr[k][j]);
-				}
-			}
-		}
-		return (*this = temp);
-	}
+
 	
 	//Matrix& operator * (const Matrix& a)
 	//{
@@ -228,7 +210,7 @@ public:
 	//	return result;
 	//}
 	Matrix Matrix ::operator *(Matrix& b) {
-		Matrix c(line, collumn);
+		Matrix c(this->line, b.collumn);
 		for (int k = 0; k < line; k++) {
 			for (int i = 0; i < collumn; i++)
 			{
