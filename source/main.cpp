@@ -41,5 +41,14 @@ int main()
 		cout << "Ошибка: " << ex.what() << endl;
 	}
 
+	cout << "Исключение на умножение" << endl;
+	try
+	{
+		cout << x1* x2;
+	}
+	catch (const std::exception & ex)
+	{
+		cout << "Ошибка: " << ex.what() << endl;
+	}
 	cout << endl<< "Также работают исключения на всё отстальное" << endl;
 }
